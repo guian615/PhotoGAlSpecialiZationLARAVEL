@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Image;
-
-use Auth;
-use Session;
 
 
 class ImageController extends Controller
 {
 
-    public function index(){
-        $images = Image::latest()->paginate(3);
-        return view('welcome')->with('images', $images);
+    public function index(Request $request){
+        if($request->query('q')){
+
+            $images = Image::where('caption','LIKE','%'.$request->query('q').'%')->paginate(3);
+        }
+        else{
+
+            $images = Image::latest()->paginate(3);
+            return view('welcome',compact('images'));//->with('images', $images);
+        }
+        return view('welcome',compact('images'));
 
     }
     public function post(Request $request)
@@ -36,15 +42,10 @@ class ImageController extends Controller
             $post->caption = $request->caption;
             $post->category = $request->category;
             $post->save();
-
         }
 
 
         Session::flash('success', 'Images uploaded');
-
-
-
-
 
         return redirect('/');
     }
@@ -56,31 +57,12 @@ class ImageController extends Controller
         return redirect('/');
     }
 
-
-    // public function store()
-    // {
-    //     $data = request()->validate([
-    //         'caption' => 'required',
-    //         'category' => 'required',
-    //         'image' =>'required'
-    //     ]);
-
-    //     $imagePath = request('image')->store('profile','public');
-
-    //     $image = Image::make(public_path("storage/{$imagePath}"));
-    //     $image->save();
-
-    //     auth()->user()->posts->create([
-    //         'caption' => $data['caption'],
-    //         'category' => $data['category'],
-    //         'image' => $imagePath
-    //     ]);
-
-    //     return redirect('/profile/'. auth()->user()->id);
-    //     dd(request()->all());
-
-
-    // }
+    public function search()
+    {
+        $search_text = $_GET['query'];
+        $image = Image::where('caption','LIKE', '%'.$search_text.'%')->get();
+        return view('welcome', compact('image'));
+    }
 }
 
 

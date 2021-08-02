@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+    // images
+
+        // $query = ImageController::where('user_id', auth()->id());
+
+        // $data['images'] = $query->paginate(2);
+
+        return view('home');//, $data);
     }
 }
