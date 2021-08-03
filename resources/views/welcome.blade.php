@@ -1,15 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
-    <link type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     <div class="container-fluid">
 
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card bg-light">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
                             <div>
@@ -28,11 +25,11 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="d-flex flex-row-reverse" >
+                        <div class="d-flex flex-row-reverse mb-4">
                             <form action="/" method="GET" role="search" class="  ">
                                 {{ csrf_field() }}
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="q" placeholder="Search"
+                                    <input type="text" class="form-control" name="q" placeholder="Search for Caption"
                                         style="border-color: #80ccff;" class="input-group-btn">
                                     <button type="submit" class="btn btn-outline-info ml-2">
                                         <span class="glyphicon glyphicon-search"><i class="fa fa-search"
@@ -48,25 +45,23 @@
 
                                 <h5>Filter By Category</h5>
                                 <div class="list-group">
-                                    <a href="javascript:filter_image('all')"
-                                        class="list-group-item list-group-item-action">All</a>
-                                    <a href="javascript:filter_image('leisure')"
-                                        class="list-group-item list-group-item-action">Leisure</a>
-                                    <a href="javascript:filter_image('life')"
-                                        class="list-group-item list-group-item-action">Life</a>
-                                    <a href="javascript:filter_image('Others')"
-                                        class="list-group-item list-group-item-action">Others</a>
+                                    <a href="/?category=All" class="list-group-item list-group-item-action">All</a>
+                                    <a href="/?category=Leisure" class="list-group-item list-group-item-action">Leisure</a>
+                                    <a href="/?category=Life" class="list-group-item list-group-item-action">Life</a>
+                                    <a href="/?category=Others" class="list-group-item list-group-item-action">Others</a>
                                 </div>
                             </div>
 
-                            <div class="col-md-9">
+                            <div class="col-md-9" style=";">
+
+
                                 @if (Auth::check())
                                     @if ('image->user_id == Auth::user()->id')
                                         @csrf
 
                                         {{-- Upload image --}}
                                         <button data-toggle="collapse" class="btn btn-outline-success mb-2"
-                                            data-target="#demo" style="margin-top: -50px;">
+                                            data-target="#demo">
                                             <i class="fa fa-plus"> </i>
                                         </button>
 
@@ -122,15 +117,35 @@
 
                                             <div class="col-xl-4 col-lg-4 col-md-6 col-xs-12">
 
-                                                <div class="card mb-4">
+                                                <div class="card mb-4 bg-light">
+
 
                                                     <div class="card-header">
-                                                        <i class="fa fa-thumb-tack text-danger mr-2" aria-hidden="true"></i>
-                                                        {{ $image->caption }}
+                                                        <div class="row">
+                                                            <div class="col-sm">
+                                                                <i class="fa fa-thumb-tack text-danger mr-2"
+                                                                    aria-hidden="true"></i>
+                                                                {{ $image->category }}
+                                                            </div>
+                                                            <div class="col-sm">
+
+                                                                <i class="fa fa-cc text-primary mr-2"
+                                                                    aria-hidden="true"></i>
+                                                                {{ $image->caption }}
+                                                            </div>
+                                                        </div>
+
                                                     </div>
 
-                                                    <img src="{{ asset($image->image) }}" class="card-img-top"
-                                                        height="220">
+
+                                                    {{-- <img src="{{ asset($image->image) }}" class="card-img-top"
+                                                        height="220"> --}}
+
+
+                                                    {{-- <a href="/image/{{ $image->id }}"> --}}
+                                                        <img src="{{ asset($image->image) }}" class="card-img-top"
+                                                            height="220">
+                                                    {{-- </a> --}}
 
 
                                                     @if (Auth::check())
@@ -181,13 +196,6 @@
                                     @endforelse
 
 
-                                    {{-- @if (count($images))
-                                    <div class="col-md-12">
-                                        {{ $images->links()}}
-                                    </div> --}}
-
-                                    {{-- @endif --}}
-
                                 </div>
                             </div>
                         </div>
@@ -199,16 +207,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
-{{-- @section('js')
-<script type="text/javascript">
 
-var query={}
-
-function filter_image(value){
-    Object.assign(query, {'category':value});
-    window.location.href = "{{route('welcome')}}" + '?'+ $.param(query);
-}
-
-</script> --}}

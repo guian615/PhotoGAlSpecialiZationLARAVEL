@@ -16,10 +16,16 @@ class ImageController extends Controller
 
             $images = Image::where('caption','LIKE','%'.$request->query('q').'%')->paginate(3);
         }
-        else{
+
+        elseif ($request->query('category') && $request->query('category') != "All"){
+            $images = Image::where('category','LIKE','%'.$request->query('category').'%')->paginate(3);
+        }
+
+
+        elseif (!$request->query('q') || ($request->query('category') && $request->query('category') == "All") ){
+
 
             $images = Image::latest()->paginate(3);
-            return view('welcome',compact('images'));//->with('images', $images);
         }
         return view('welcome',compact('images'));
 
@@ -63,6 +69,8 @@ class ImageController extends Controller
         $image = Image::where('caption','LIKE', '%'.$search_text.'%')->get();
         return view('welcome', compact('image'));
     }
+
+
 }
 
 

@@ -46,6 +46,14 @@
                         <i class="fa fa-paper-plane"> </i>
                     </button>
 
+                    <a href="/">
+                        <button type="submit" class="btn btn-outline-primary float-right">
+                            <i class="fa fa-mail-reply"> </i>
+                        </button>
+                    </a>
+
+
+
                 </div>
 
             </form>
