@@ -114,7 +114,7 @@
 
                                         {{-- @if (count($images)) --}}
                                         @forelse($images as $image)
-
+                                            
                                             <div class="col-xl-4 col-lg-4 col-md-6 col-xs-12">
 
                                                 <div class="card mb-4 bg-light">

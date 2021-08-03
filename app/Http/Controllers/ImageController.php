@@ -20,13 +20,13 @@ class ImageController extends Controller
         elseif ($request->query('category') && $request->query('category') != "All"){
             $images = Image::where('category','LIKE','%'.$request->query('category').'%')->paginate(3);
         }
-
-
-        elseif (!$request->query('q') || ($request->query('category') && $request->query('category') == "All") ){
-
-
+        elseif (!Auth::user() && !$request->query('q') || ($request->query('category') && $request->query('category') == "All")){
             $images = Image::latest()->paginate(3);
+        }elseif(Auth::user() || !$request->query('q') || ($request->query('category') && $request->query('category') == "All") ) {
+
+           $images = Image::where('user_id', Auth::user()->id)->paginate(3);
         }
+
         return view('welcome',compact('images'));
 
     }
