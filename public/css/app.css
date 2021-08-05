@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);
 @charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -10137,26 +10137,31 @@ h3 {
 }
 .fa-rotate-90 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   transform: rotate(90deg);
 }
 
 .fa-rotate-180 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+  filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   transform: rotate(180deg);
 }
 
 .fa-rotate-270 {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+  filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   transform: rotate(270deg);
 }
 
 .fa-flip-horizontal {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+  filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   transform: scale(-1, 1);
 }
 
 .fa-flip-vertical {
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   transform: scale(1, -1);
 }
 
@@ -13028,3 +13033,72 @@ h3 {
   overflow: visible;
   clip: auto;
 }
+
+
+/* styleing images */
+.con {
+  position: relative;
+
+}
+
+.img{
+  display: block;
+  width: 100%;
+  /* height: auto; */
+}
+
+.overlay {
+  position: absolute;
+  /* top: 0; */
+  bottom: 0;
+  /* left: 0;
+  right: 0; */
+  height: 100%;
+  width: 20%;
+  opacity: 0;
+  padding: 30px;
+  transition: .5s ease;
+  /* background-color: #0000006c; */
+  background: #C33764;  /* fallback colour. Make sure this is just one solid colour. */
+  background: -webkit-linear-gradient(rgba(31, 31, 34, 0.616), rgb(17, 16, 17)), url("https://bit.ly/2rlzaXi");
+  background: linear-gradient(rgba(39, 40, 51, 0.76), rgba(43, 37, 39, 0.842)), url("https://bit.ly/2rlzaXi"); /* The least supported option. */
+}
+
+
+
+.con:hover .overlay {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  /* font-size: 20px; */
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  /* text-align: center; */
+}
+#msform {
+	width: 450px;
+	margin: 100px auto;
+	text-align: center;
+	position: relative;
+}
+#msform fieldset {
+	border: 0 none;
+	border-radius: 3px;
+	box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+	padding: 20px 30px;
+
+	box-sizing: border-box;
+	width: 100%;
+	margin: -8% 20%;
+	position: absolute;
+}
+#msform fieldset:not(:first-of-type) {
+	display: none;
+}
+

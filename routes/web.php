@@ -19,13 +19,12 @@ Route::get('/image/{image}/edit', [App\Http\Controllers\EditController::class, '
 
 Route::delete('/image/{id}', [App\Http\Controllers\ImageController::class, 'destroy'])->name('destroy');
 
-Route::any('/search',function(){
-    $q = Image::get ( 'q' );
-    $image = Image::where('category','LIKE','%'.$q.'%')->orWhere('caption','LIKE','%'.$q.'%')->get();
-    if(count(array($image)) > 0)
-        return view('welcome');//->withDetails($image)->withQuery ( $q );
-    else return view ('welcome');//->withMessage('No Details found. Try to search again !');
-});
+// Route::any('/search',function(){
+//     $q = Image::get ( 'q' );
+//     $image = Image::where('category','LIKE','%'.$q.'%')->orWhere('caption','LIKE','%'.$q.'%')->get();
+//     if(count(array($image)) > 0)
+//         return view('welcome');//->withDetails($image)->withQuery ( $q );
+//     else return view ('welcome');//->withMessage('No Details found. Try to search again !');
+// });
 
 Route::get('/image/{image}', [App\Http\Controllers\ImageController::class, 'index'])->name('home');
-
